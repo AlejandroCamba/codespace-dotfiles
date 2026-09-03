@@ -231,15 +231,7 @@ symlink "$REPO_DIR/.gitconfig" "$HOME/.gitconfig"
 
 # ── 6. Set zsh as default shell ──────────────────────────────────────────────
 
-# chsh may fail in containers (no password, locked passwd db) — never abort on it.
-if [[ "$SHELL" != "$(command -v zsh)" ]]; then
-  info "Changing default shell to zsh..."
-  chsh -s "$(command -v zsh)" 2>/dev/null && success "Default shell changed" || info "chsh failed (container restriction) — using .bashrc fallback"
-else
-  skip "zsh is already the default shell"
-fi
-
-# VS Code ignores chsh — exec zsh from .bashrc ensures new terminals open zsh.
+# VS Code ignores chsh and containers block it — exec zsh from .bashrc ensures new terminals open zsh.
 if ! grep -q 'exec zsh' "$HOME/.bashrc"; then
   printf '\n# Switch to zsh (set by codespace-dotfiles)\ncommand -v zsh &>/dev/null && exec zsh\n' >> "$HOME/.bashrc"
   success "Added exec zsh to ~/.bashrc"
