@@ -207,12 +207,13 @@ fi
 
 if [[ ! -d "$HOME/dotfiles" ]]; then
   info "Cloning AlejandroCamba/dotfiles into ~/dotfiles..."
-  local token="${DOTFILES_PAT:-$GITHUB_TOKEN}"
-  if [[ -n "$token" ]]; then
-    git clone "https://oauth2:${token}@github.com/AlejandroCamba/dotfiles.git" "$HOME/dotfiles"
+  _token="${DOTFILES_PAT:-$GITHUB_TOKEN}"
+  if [[ -n "$_token" ]]; then
+    git clone "https://oauth2:${_token}@github.com/AlejandroCamba/dotfiles.git" "$HOME/dotfiles"
   else
     git clone https://github.com/AlejandroCamba/dotfiles.git "$HOME/dotfiles"
   fi
+  unset _token
   success "dotfiles cloned"
 else
   skip "~/dotfiles already exists"
