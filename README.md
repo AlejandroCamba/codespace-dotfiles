@@ -21,8 +21,8 @@ Project-level runtimes (Node, Python, Go, etc.) are handled by devcontainers, no
 
 ## Prerequisites
 
-- This repo must be **public**, or you must have Codespaces access to a private dotfiles repo configured in your GitHub settings.
 - GitHub account with Codespaces enabled.
+- `AlejandroCamba/dotfiles` is private — a `DOTFILES_PAT` Codespace secret is required (see below).
 
 ## Configure GitHub to use this repo
 
@@ -48,6 +48,17 @@ Every new Codespace you create will now run `install.sh` automatically.
 
 This keeps Claude Code's skills, hooks, and settings identical between your local machine and every Codespace. When you update `dotfiles`, the change is live in every Codespace that has `~/dotfiles` cloned.
 
+## DOTFILES_PAT
+
+`AlejandroCamba/dotfiles` is a private repo. `install.sh` needs a token to clone it. Create a fine-grained PAT with **Contents: Read-only** on `AlejandroCamba/dotfiles`, then add it as a Codespace secret:
+
+1. Go to [github.com/settings/tokens](https://github.com/settings/tokens) → Fine-grained tokens → Generate new token
+2. Set resource owner to your account, select only `AlejandroCamba/dotfiles`
+3. Under **Repository permissions**, set **Contents** to **Read-only**
+4. Copy the token
+5. Go to [github.com/settings/codespaces](https://github.com/settings/codespaces) → Secrets → New secret
+6. Name it `DOTFILES_PAT`, paste the token, and grant access to `AlejandroCamba/bluebox` (or whichever repos you create Codespaces in)
+
 ## BLUEBOX_KB_PAT
 
 The `.zshrc` sources `~/.config/personal-secrets` if it exists. This is where `BLUEBOX_KB_PAT` lives on the local machine. In Codespaces, set it as a **Codespace secret** instead:
@@ -64,6 +75,7 @@ After creating this repo on GitHub and configuring it as your dotfiles source:
 
 - [ ] Create the GitHub repo `AlejandroCamba/codespace-dotfiles` and push this directory
 - [ ] Go to Settings → Codespaces → Dotfiles and point to this repo
+- [ ] Create a fine-grained PAT with Contents: Read-only on `AlejandroCamba/dotfiles` and add it as a Codespace secret named `DOTFILES_PAT`
 - [ ] Set `BLUEBOX_KB_PAT` as a Codespace secret
 - [ ] Open a new Codespace to verify everything works
 
