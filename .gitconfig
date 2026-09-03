@@ -1,0 +1,20 @@
+[user]
+	name = Alejandro
+	email = 30796770+AlejandroCamba@users.noreply.github.com
+[rebase]
+	autoSquash = true
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/
+[core]
+	symlinks = true
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
+[merge]
+	conflictstyle = diff3
+[diff]
+	colorMoved = default
