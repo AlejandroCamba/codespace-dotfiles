@@ -207,7 +207,11 @@ fi
 
 if [[ ! -d "$HOME/dotfiles" ]]; then
   info "Cloning AlejandroCamba/dotfiles into ~/dotfiles..."
-  git clone https://github.com/AlejandroCamba/dotfiles.git "$HOME/dotfiles"
+  if [[ -n "$GITHUB_TOKEN" ]]; then
+    git clone "https://oauth2:${GITHUB_TOKEN}@github.com/AlejandroCamba/dotfiles.git" "$HOME/dotfiles"
+  else
+    git clone https://github.com/AlejandroCamba/dotfiles.git "$HOME/dotfiles"
+  fi
   success "dotfiles cloned"
 else
   skip "~/dotfiles already exists"
