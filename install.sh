@@ -26,10 +26,14 @@ symlink() {
 
 # ── 1. Shell ────────────────────────────────────────────────────────────────
 
+# Refresh apt index once upfront — prebuilt images can have a stale cache.
+info "Refreshing apt package index..."
+sudo apt-get update -q
+
 # zsh
 if ! command -v zsh &>/dev/null; then
   info "Installing zsh..."
-  sudo apt-get update -q && sudo apt-get install -y zsh
+  sudo apt-get install -y zsh
   success "zsh installed ($(zsh --version))"
 else
   skip "zsh already installed ($(zsh --version))"
