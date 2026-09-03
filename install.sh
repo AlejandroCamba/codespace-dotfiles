@@ -79,6 +79,24 @@ fi
 
 # ── 2. CLI tools ─────────────────────────────────────────────────────────────
 
+# tmux
+if ! command -v tmux &>/dev/null; then
+  info "Installing tmux..."
+  sudo apt-get install -y tmux
+  success "tmux installed ($(tmux -V))"
+else
+  skip "tmux already installed ($(tmux -V))"
+fi
+
+# vim (alias target — some tools hardcode 'vim')
+if ! command -v vim &>/dev/null; then
+  info "Installing vim..."
+  sudo apt-get install -y vim
+  success "vim installed"
+else
+  skip "vim already installed"
+fi
+
 # ripgrep (available in apt)
 if ! command -v rg &>/dev/null; then
   info "Installing ripgrep..."
@@ -212,9 +230,19 @@ symlink "$REPO_DIR/.gitconfig" "$HOME/.gitconfig"
 if [[ "$SHELL" != "$(command -v zsh)" ]]; then
   info "Changing default shell to zsh..."
   chsh -s "$(command -v zsh)"
-  success "Default shell changed — re-login or start a new session to take effect"
+  success "Default shell changed"
 else
   skip "zsh is already the default shell"
+fi
+
+# VS Code ignores chsh — add exec zsh to .bashrc so new terminals start zsh.
+if ! grep -q 'exec zsh' "$HOME/.bashrc"; then
+  echo '' >> "$HOME/.bashrc"
+  echo '# Switch to zsh (set by codespace-dotfiles)' >> "$HOME/.bashrc"
+  echo 'command -v zsh &>/dev/null && exec zsh' >> "$HOME/.bashrc"
+  success "Added exec zsh to ~/.bashrc"
+else
+  skip "exec zsh already in ~/.bashrc"
 fi
 
 # ── 7. Done ──────────────────────────────────────────────────────────────────
