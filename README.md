@@ -13,7 +13,6 @@ When GitHub Codespaces starts a new Codespace, it automatically:
 
 - zsh + oh-my-zsh + Powerlevel10k + zsh-autosuggestions + zsh-autocomplete
 - CLI tools: ripgrep, bat, fd, eza, delta, lazygit, fzf, autojump
-- atuin (cross-codespace shell history sync)
 - Clones `AlejandroCamba/dotfiles` to `~/dotfiles` (for Claude config)
 - Symlinks Claude config from `~/dotfiles`: agents, skills, hooks, commands, CLAUDE.md, settings.json
 - Symlinks shell config from this repo: `.zshrc`, `.p10k.zsh`, `.gitconfig`
@@ -49,29 +48,6 @@ Every new Codespace you create will now run `install.sh` automatically.
 
 This keeps Claude Code's skills, hooks, and settings identical between your local machine and every Codespace. When you update `dotfiles`, the change is live in every Codespace that has `~/dotfiles` cloned.
 
-## Atuin history sync
-
-[Atuin](https://atuin.sh) replaces your shell history with a SQLite database, optionally synced to Atuin's cloud (or a self-hosted server). Every Codespace picks up your full history.
-
-**One-time setup (do this once on any machine):**
-
-```bash
-atuin register -u <username> -e <email> -p <password>
-```
-
-**On each subsequent Codespace (or machine), log in:**
-
-```bash
-atuin login -u <username> -p <password>
-atuin sync
-```
-
-The `.zshrc` in this repo initialises atuin on shell start:
-
-```zsh
-[[ -f ~/.atuin/bin/atuin ]] && eval "$(~/.atuin/bin/atuin init zsh)"
-```
-
 ## BLUEBOX_KB_PAT
 
 The `.zshrc` sources `~/.config/personal-secrets` if it exists. This is where `BLUEBOX_KB_PAT` lives on the local machine. In Codespaces, set it as a **Codespace secret** instead:
@@ -88,7 +64,6 @@ After creating this repo on GitHub and configuring it as your dotfiles source:
 
 - [ ] Create the GitHub repo `AlejandroCamba/codespace-dotfiles` and push this directory
 - [ ] Go to Settings → Codespaces → Dotfiles and point to this repo
-- [ ] Register atuin: `atuin register -u <username> -e <email> -p <password>`
 - [ ] Set `BLUEBOX_KB_PAT` as a Codespace secret
 - [ ] Open a new Codespace to verify everything works
 

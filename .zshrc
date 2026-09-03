@@ -34,9 +34,6 @@ command -v fd    &>/dev/null && alias find='fd'
 
 export EDITOR="nvim"
 
-# Atuin — cross-codespace shell history sync
-[[ -f ~/.atuin/bin/atuin ]] && eval "$(~/.atuin/bin/atuin init zsh)"
-
 # Includes GitHub PAT needed in codespaces for writing into the bluebox-kb
 [ -f ~/.config/personal-secrets ] && source ~/.config/personal-secrets
 

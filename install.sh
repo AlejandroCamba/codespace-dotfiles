@@ -181,17 +181,7 @@ else
   skip "lazygit already installed ($(lazygit --version))"
 fi
 
-# ── 3. Atuin (cross-codespace shell history sync) ────────────────────────────
-
-if [[ ! -f "$HOME/.atuin/bin/atuin" ]]; then
-  info "Installing atuin..."
-  curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | sh
-  success "atuin installed"
-else
-  skip "atuin already installed ($("$HOME/.atuin/bin/atuin" --version))"
-fi
-
-# ── 4. Clone dotfiles repo (for Claude config) ───────────────────────────────
+# ── 3. Clone dotfiles repo (for Claude config) ───────────────────────────────
 
 if [[ ! -d "$HOME/dotfiles" ]]; then
   info "Cloning AlejandroCamba/dotfiles into ~/dotfiles..."
@@ -201,7 +191,7 @@ else
   skip "~/dotfiles already exists"
 fi
 
-# ── 5. Symlink Claude config from ~/dotfiles ─────────────────────────────────
+# ── 4. Symlink Claude config from ~/dotfiles ─────────────────────────────────
 
 mkdir -p "$HOME/.claude"
 symlink "$HOME/dotfiles/claude/agents"       "$HOME/.claude/agents"
@@ -211,13 +201,13 @@ symlink "$HOME/dotfiles/claude/commands"     "$HOME/.claude/commands"
 symlink "$HOME/dotfiles/claude/CLAUDE.md"    "$HOME/.claude/CLAUDE.md"
 symlink "$HOME/dotfiles/claude/settings.json" "$HOME/.claude/settings.json"
 
-# ── 6. Symlink shell config from this repo ───────────────────────────────────
+# ── 5. Symlink shell config from this repo ───────────────────────────────────
 
 symlink "$REPO_DIR/.zshrc"    "$HOME/.zshrc"
 symlink "$REPO_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 symlink "$REPO_DIR/.gitconfig" "$HOME/.gitconfig"
 
-# ── 7. Set zsh as default shell ──────────────────────────────────────────────
+# ── 6. Set zsh as default shell ──────────────────────────────────────────────
 
 if [[ "$SHELL" != "$(command -v zsh)" ]]; then
   info "Changing default shell to zsh..."
@@ -227,7 +217,7 @@ else
   skip "zsh is already the default shell"
 fi
 
-# ── 8. Done ──────────────────────────────────────────────────────────────────
+# ── 7. Done ──────────────────────────────────────────────────────────────────
 
 echo ""
 echo "================================================================="
